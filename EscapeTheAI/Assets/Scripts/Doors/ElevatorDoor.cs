@@ -72,6 +72,8 @@ public class ElevatorDoor : MonoBehaviour {
     public void TransportPlayer()
     {
         player.transform.position += new Vector3(0,playerTpHeight,0);
-        secondElevator.GetComponent<ElevatorDoor>().OpenClose(1);
+        player.GetComponent<PlayerCheckPoints>().id++;
+        secondElevator.GetComponent<ElevatorDoor>().selection = 1;
+        secondElevator.GetComponent<ElevatorDoor>().opening = true;
     }
 }
