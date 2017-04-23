@@ -27,6 +27,9 @@ public class Button_001 : MonoBehaviour {
                 case 2:
                     target.GetComponent<ElevatorDoor>().Triggerd(0);
                     break;
+                case 3:
+                    target.SetActive(false);
+                    break;
             }
             for(int i = 0; i < 10; i++)
             {
