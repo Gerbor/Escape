@@ -10,6 +10,7 @@ public class DoorConsole : MonoBehaviour {
     public string[] validInput;
     public Text consoleText;
     public Text inputText;
+    public int type;
 
     public void CommandInput()
     {
@@ -55,12 +56,28 @@ public class DoorConsole : MonoBehaviour {
             case 2:
                 //Open door 1
                 consoleText.text = responses[2];
-                doors[0].SetActive(false);
+                switch (type)
+                {
+                    case 0:
+                        doors[0].SetActive(false);
+                        break;
+                    case 1:
+                        doors[0].GetComponent<MovingPlatform>().activated = true;
+                        break;
+                }             
                 break;
             case 3:
                 //Open door 2
                 consoleText.text = responses[3];
-                doors[1].SetActive(false);
+                switch (type)
+                {
+                    case 0:
+                        doors[1].SetActive(false);
+                        break;
+                    case 1:
+                        doors[1].GetComponent<MovingPlatform>().activated = true;
+                        break;
+                }
                 break;
         }
     }

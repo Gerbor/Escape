@@ -85,11 +85,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public bool runPerm;
         }
 
+        [Serializable]
+        public class Other
+        {
+            public bool parented;
+        }
+
         public Camera cam;
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
         public Perms perms = new Perms();
+        public Other other = new Other();
 
 
         private Rigidbody m_RigidBody;
@@ -237,12 +244,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
+            if (!perms.lookPerm)
+            {
+                return;
+            }
             //avoids the mouse looking if the game is effectively paused
             if (Mathf.Abs(Time.timeScale) < float.Epsilon) return;
 
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
-
             mouseLook.LookRotation (transform, cam.transform);
 
             if (m_IsGrounded || advancedSettings.airControl)
