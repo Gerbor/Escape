@@ -10,6 +10,18 @@ public class Button_001 : MonoBehaviour {
     public float speed;
     public GameObject target;
     public Vector3 targetPos;
+    public bool throwButton;
+
+    void OnCollisionEnter(Collision c)
+    {
+        if (throwButton)
+        {
+            if(c.transform.tag == "PickUp")
+            {
+                Press();
+            }
+        }
+    }
 
     public void Press()
     {

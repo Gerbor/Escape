@@ -10,5 +10,9 @@ public class BackToSpawnTrigger : MonoBehaviour {
         {
             c.transform.GetComponent<PlayerCheckPoints>().BackToCheckPoint();
         }
+        if(c.transform.tag == "Item")
+        {
+            c.transform.GetComponent<ItemLocReset>().ResetLoc();
+        }
     }
 }
