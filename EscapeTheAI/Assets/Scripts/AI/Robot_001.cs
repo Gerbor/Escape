@@ -18,7 +18,7 @@ public class Robot_001 : MonoBehaviour
     public int chasingTime;
     public float chaseSpeed;
     public float chaseAcceleration;
-    public AudioSource audio;
+    public AudioSource aClip;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -32,7 +32,7 @@ public class Robot_001 : MonoBehaviour
         {
             if (transform.position.ToString() == waypoints[target].ToString())
             {
-                audio.Play();
+                aClip.Play();
                 if (target == waypoints.Length -1)
                 {
                     target = 0;

@@ -18,6 +18,9 @@ public class ElevatorDoor : MonoBehaviour {
 
     public int selection;
 
+    public GameObject optimizer;
+    public int optID;
+
     void Update()
     {
         if(opening || closing)
@@ -64,7 +67,9 @@ public class ElevatorDoor : MonoBehaviour {
 
     IEnumerator Transport()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
+        optimizer.GetComponent<Optimizer>().Optimize(optID);
+        yield return new WaitForSeconds(3);
         TransportPlayer();
 
     }

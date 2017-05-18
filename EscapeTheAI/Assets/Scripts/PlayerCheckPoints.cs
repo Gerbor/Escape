@@ -6,7 +6,7 @@ public class PlayerCheckPoints : MonoBehaviour {
 
     public Vector3[] checkpoint;
     public int id;
-    public AudioSource audio;
+    public AudioSource aClip;
 
     public void BackToCheckPoint()
     {
@@ -14,6 +14,6 @@ public class PlayerCheckPoints : MonoBehaviour {
     }
     public void Hit()
     {
-        audio.Play();
+        aClip.Play();
     }
 }
