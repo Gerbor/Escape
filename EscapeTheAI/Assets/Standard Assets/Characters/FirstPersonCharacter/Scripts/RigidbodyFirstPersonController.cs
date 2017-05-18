@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Characters.FirstPerson
@@ -86,6 +87,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
         [Serializable]
+        public class Sounds
+        {
+            public AudioClip[] footsteps;
+            public AudioSource audio;
+            public float lenghtWalk;
+            public float lenghtRun;
+            public bool canStep;
+        }
+
+        [Serializable]
         public class Other
         {
             public bool parented;
@@ -96,6 +107,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
         public Perms perms = new Perms();
+        public Sounds sounds = new Sounds();
         public Other other = new Other();
 
 
@@ -171,6 +183,29 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed;
                 desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed;
                 desiredMove.y = desiredMove.y*movementSettings.CurrentTargetSpeed;
+
+                //Play Footstep sounds
+                if (sounds.canStep)
+                {
+                    sounds.canStep = false;
+                    sounds.audio.clip = sounds.footsteps[UnityEngine.Random.Range(0, sounds.footsteps.Length)];
+                    if (!Running)
+                    {
+                        sounds.audio.volume = 0.1f;
+                        StartCoroutine(WaitForFootSteps(sounds.lenghtWalk));
+                    }
+                    else
+                    {
+                        sounds.audio.volume = 0.2f;
+                        StartCoroutine(WaitForFootSteps(sounds.lenghtRun));
+                    }
+                    
+                    sounds.audio.Play();
+                    
+                }
+                
+                //
+
                 if (m_RigidBody.velocity.sqrMagnitude <
                     (movementSettings.CurrentTargetSpeed*movementSettings.CurrentTargetSpeed))
                 {
@@ -206,6 +241,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jump = false;
         }
 
+        IEnumerator WaitForFootSteps(float i)
+        {
+            yield return new WaitForSeconds(i);
+            sounds.canStep = true;
+        }
 
         private float SlopeMultiplier()
         {

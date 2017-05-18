@@ -11,6 +11,8 @@ public class Button_001 : MonoBehaviour {
     public GameObject target;
     public Vector3 targetPos;
     public bool throwButton;
+    public GameObject extra;
+    public AudioSource click;
 
     void OnCollisionEnter(Collision c)
     {
@@ -28,6 +30,7 @@ public class Button_001 : MonoBehaviour {
         if (!used)
         {
             used = true;
+            click.Play();
             switch (type)
             {
                 case 0:
@@ -41,6 +44,10 @@ public class Button_001 : MonoBehaviour {
                     break;
                 case 3:
                     target.SetActive(false);
+                    break;
+                case 4:
+                    target.SetActive(false);
+                    extra.GetComponent<MovingPlatform>().activated = true;
                     break;
             }
             for(int i = 0; i < 10; i++)

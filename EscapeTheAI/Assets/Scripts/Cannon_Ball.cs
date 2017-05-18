@@ -20,6 +20,7 @@ public class Cannon_Ball : MonoBehaviour {
         if(c.transform.tag == "Player")
         {
             c.transform.GetComponent<PlayerCheckPoints>().BackToCheckPoint();
+            c.transform.GetComponent<PlayerCheckPoints>().Hit();
         }
         Destroy(gameObject, 5);
     }
